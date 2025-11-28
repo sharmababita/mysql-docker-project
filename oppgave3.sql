@@ -13,7 +13,7 @@ USE ga_bibliotek;
 -- -----------------------------------------------------
 SELECT * 
 FROM bok
-WHERE UtgittÅr > 2000;
+WHERE UtgittAar > 2000;
 
 -- -----------------------------------------------------
 -- 2. Get author name and title of all books, sorted by author
@@ -32,19 +32,19 @@ WHERE AntallSider > 300;
 -- -----------------------------------------------------
 -- 4. Add a new book
 -- -----------------------------------------------------
-INSERT INTO bok (ISBN, Tittel, Forfatter, Forlag, UtgittÅr, AntallSider)
+INSERT INTO bok (ISBN, Tittel, Forfatter, Forlag, UtgittAar, AntallSider)
 VALUES ('999-1234567890', 'The Silent Library', 'John Writer', 'OpenAI Press', 2024, 250);
 
 -- -----------------------------------------------------
--- 5. Add a new borrower (låner)
+-- 5. Add a new borrower (laaner)
 -- -----------------------------------------------------
-INSERT INTO låner (Fornavn, Etternavn, Adresse)
+INSERT INTO laaner (Fornavn, Etternavn, Adresse)
 VALUES ('Ankit', 'Sharma', 'Bergen, Norway');
 
 -- -----------------------------------------------------
 -- 6. Update address for a specific borrower (example LNr = 1)
 -- -----------------------------------------------------
-UPDATE låner
+UPDATE laaner
 SET Adresse = 'Oslo, Norway'
 WHERE LNr = 1;
 
@@ -52,15 +52,15 @@ WHERE LNr = 1;
 -- 7. Get all loans with borrower name and book title
 -- -----------------------------------------------------
 SELECT 
-    utlån.UtlånsNr, 
-    låner.Fornavn, 
-    låner.Etternavn, 
+    utlaan.UtlansNr, 
+    laaner.Fornavn, 
+    laaner.Etternavn, 
     bok.Tittel, 
-    utlån.Utlånsdato, 
-    utlån.Levert
-FROM utlån
-JOIN låner ON utlån.LNr = låner.LNr
-JOIN bok ON utlån.ISBN = bok.ISBN;
+    utlaan.Utlansdato, 
+    utlaan.Levert
+FROM utlaan
+JOIN laaner ON utlaan.LNr = laaner.LNr
+JOIN bok ON utlaan.ISBN = bok.ISBN;
 
 -- -----------------------------------------------------
 -- 8. Get all books and number of copies (eksemplarer)
@@ -76,21 +76,21 @@ GROUP BY bok.Tittel;
 -- 9. Get number of loans per borrower
 -- -----------------------------------------------------
 SELECT 
-    låner.Fornavn, 
-    låner.Etternavn, 
-    COUNT(utlån.UtlånsNr) AS AntallUtlån
-FROM låner
-LEFT JOIN utlån ON låner.LNr = utlån.LNr
-GROUP BY låner.LNr;
+    laaner.Fornavn, 
+    laaner.Etternavn, 
+    COUNT(utlaan.UtlansNr) AS AntallUtlån
+FROM laaner
+LEFT JOIN utlaan ON laaner.LNr = utlaan.LNr
+GROUP BY laaner.LNr;
 
 -- -----------------------------------------------------
 -- 10. Get number of loans per book
 -- -----------------------------------------------------
 SELECT 
     bok.Tittel, 
-    COUNT(utlån.UtlånsNr) AS AntallUtlån
+    COUNT(utlaan.UtlansNr) AS AntallUtlån
 FROM bok
-LEFT JOIN utlån ON bok.ISBN = utlån.ISBN
+LEFT JOIN utlaan ON bok.ISBN = utlaan.ISBN
 GROUP BY bok.ISBN;
 
 -- -----------------------------------------------------
@@ -99,19 +99,19 @@ GROUP BY bok.ISBN;
 SELECT 
     bok.Tittel
 FROM bok
-LEFT JOIN utlån ON bok.ISBN = utlån.ISBN
-WHERE utlån.ISBN IS NULL;
+LEFT JOIN utlaan ON bok.ISBN = utlaan.ISBN
+WHERE utlaan.ISBN IS NULL;
 
 -- -----------------------------------------------------
 -- 12. Get author and number of loaned books per author
 -- -----------------------------------------------------
 SELECT 
     bok.Forfatter, 
-    COUNT(utlån.UtlånsNr) AS AntallUtlån
+    COUNT(utlaan.UtlansNr) AS AntallUtlån
 FROM bok
-LEFT JOIN utlån ON bok.ISBN = utlån.ISBN
+LEFT JOIN utlaan ON bok.ISBN = utlaan.ISBN
 GROUP BY bok.Forfatter;
 
 -- =====================================================
 -- END OF FILE
--- =====================================================
+
