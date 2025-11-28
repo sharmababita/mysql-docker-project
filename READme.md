@@ -95,11 +95,5 @@ A simple ER diagram would show:
 - `eksemplar` (1) — (N) `utlån`
 - `låner` (1) — (N) `utlån`
 
-(You can create this quickly with draw.io and include the image in your submission.)
-
 ---
 
-## Final notes
-- Keep the README concise — 1–2 pages is fine.
-- Use bullet points and headings (as shown) for clarity.
-- If you want, I can tailor this README to use the exact column names and datatypes from your Task 1 SQL script — paste your `CREATE TABLE` statements and I will adapt the README precisely.
