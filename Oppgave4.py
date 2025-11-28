@@ -10,9 +10,9 @@ def connect_database():
     """Connect to the MySQL database running in Docker."""
     return mysql.connector.connect(
         host="localhost",
-        port=3307,                # IMPORTANT: This is the port of your new Docker container
+        port=3307,                
         user="root",
-        password="Babita@123",   # IMPORTANT: This is your correct MySQL root password
+        password="Babita@123",   
         database="ga_bibliotek"
     )
 
